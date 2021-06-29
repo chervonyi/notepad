@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="background">#FFF</color>
+    <color name="accent">#3369FF</color>
+    <color name="tab_ripple_color">#1A3369FF</color>
+    <color name="text_0">#000</color>
+
+    <color name="note_block_background">#FAFBFC</color>
+    <color name="note_block_text_0">#000</color>
+    <color name="note_block_text_1">#909598</color>
+    <color name="note_block_folder_background">#F2F4F7</color>
+    <color name="note_block_folder_text">#909598</color>
+
+    <color name="note_block_highlighted_background">#3369FF</color>
+    <color name="note_block_highlighted_text_0">#FFF</color>
+    <color name="note_block_highlighted_text_1">#AFDBFF</color>
+    <color name="note_block_highlighted_folder_background">#337AFF</color>
+    <color name="note_block_highlighted_folder_text">#FFFFFF</color>
+
+
+
+
+
+
+
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
