@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="50dp"/>
+            <solid android:color="@color/accent"/>
+            <size android:width="@dimen/checkbox_size" android:height="@dimen/checkbox_size"/>
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/ic_checkmark_outline"
+        android:height="14dp"
+        android:width="14dp"
+
+        android:top="3dp"
+        android:bottom="3dp"
+        android:start="3dp"
+        android:end="3dp">
+    </item>
+
+
+
+
+</layer-list>

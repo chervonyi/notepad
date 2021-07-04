@@ -8,6 +8,19 @@
     tools:context=".MainActivity"
     android:background="@color/background">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/floating_button_margin"
+        android:layout_marginEnd="@dimen/floating_button_margin"
+        android:clickable="true"
+        app:backgroundTint="@color/accent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:tint="@android:color/white"
+        android:src="@drawable/ic_add_outline"/>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -30,6 +43,8 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabLayout"/>
+        android:layout_below="@id/tabLayout">
+
+    </androidx.viewpager.widget.ViewPager>
 
 </RelativeLayout>

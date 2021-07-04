@@ -2,4 +2,6 @@
     <string name="app_name">Notepad</string>
     <string name="tab_all">All</string>
     <string name="tab_folders">Folders</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello All Notes fragment</string>
 </resources>
