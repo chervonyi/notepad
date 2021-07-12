@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NoteActivity"
+    tools:context=".activities.NoteActivity"
     android:orientation="vertical"
     android:background="@color/background"
     android:padding="@dimen/note_padding">
@@ -25,6 +25,7 @@
             android:textColor="@color/note_text_0"/>
 
         <TextView
+            android:id="@+id/date_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Jan 22, 10:26"
@@ -51,6 +52,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/note_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -64,26 +66,27 @@
         tools:ignore="RtlSymmetry" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/note_tasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp">
 
-        <room106.app.notepad.NoteCheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Far far away, behind the word mountains. Far far away, behind the word mountains.  Far far away, behind the word mountains" />
+<!--        <room106.app.notepad.NoteCheckBox-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Far far away, behind the word mountains. Far far away, behind the word mountains.  Far far away, behind the word mountains" />-->
 
-        <room106.app.notepad.NoteCheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="40dp"
-            android:text="Make an apoitment" />
+<!--        <room106.app.notepad.NoteCheckBox-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:drawablePadding="40dp"-->
+<!--            android:text="Make an apoitment" />-->
 
-        <room106.app.notepad.NoteCheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Take a photo"/>
+<!--        <room106.app.notepad.NoteCheckBox-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Take a photo"/>-->
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

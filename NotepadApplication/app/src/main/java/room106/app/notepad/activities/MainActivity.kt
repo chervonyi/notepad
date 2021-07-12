@@ -1,9 +1,11 @@
-package room106.app.notepad
+package room106.app.notepad.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import room106.app.notepad.R
+import room106.app.notepad.TabPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 

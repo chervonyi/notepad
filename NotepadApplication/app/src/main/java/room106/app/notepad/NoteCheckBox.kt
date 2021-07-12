@@ -11,8 +11,14 @@ import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import room106.app.notepad.models.Task
 
 class NoteCheckBox: AppCompatCheckBox {
+
+    constructor(context: Context, task: Task) : super(context) {
+        initializeView(context)
+        assignData(task)
+    }
 
     constructor(context: Context) : super(context) {
         initializeView(context)
@@ -29,9 +35,6 @@ class NoteCheckBox: AppCompatCheckBox {
     }
 
     private fun initializeView(context: Context) {
-//        val param = LinearLayoutCompat.LayoutParams(10.dp, 10.dp)
-//        layoutParams = param
-
         setPadding(10.dp, 5.dp, 0, 5.dp)
         buttonDrawable = ContextCompat.getDrawable(context, R.drawable.note_checkbox_button)
         setTextColor(context.getColor(R.color.note_block_text_1))
@@ -49,9 +52,10 @@ class NoteCheckBox: AppCompatCheckBox {
         }
     }
 
-
-
-
+    private fun assignData(task: Task) {
+        text = task.title
+        isChecked = task.done
+    }
 
 
     val Int.px: Int
