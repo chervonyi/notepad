@@ -5,10 +5,12 @@ import android.content.res.Resources
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 
 class NoteCheckBox: AppCompatCheckBox {
 
@@ -27,14 +29,16 @@ class NoteCheckBox: AppCompatCheckBox {
     }
 
     private fun initializeView(context: Context) {
-        val param = LinearLayoutCompat.LayoutParams(10.dp, 10.dp)
-        layoutParams = param
+//        val param = LinearLayoutCompat.LayoutParams(10.dp, 10.dp)
+//        layoutParams = param
 
-        setPadding(10.dp, 0, 0, 0)
+        setPadding(10.dp, 5.dp, 0, 5.dp)
         buttonDrawable = ContextCompat.getDrawable(context, R.drawable.note_checkbox_button)
         setTextColor(context.getColor(R.color.note_block_text_1))
         setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.note_block_text_size))
         background = null
+        gravity = Gravity.TOP
+        minimumHeight = 0
 
         setOnCheckedChangeListener { compoundButton, b ->
             paintFlags = if (b) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoteActivity"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="@dimen/note_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/note_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note title"
+            android:paddingBottom="20dp"
+            android:layout_toStartOf="@id/note_folder"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/note_title_size"
+            android:textColor="@color/note_text_0"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jan 22, 10:26"
+            android:layout_alignBottom="@id/note_title"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/note_date_size"
+            android:textColor="@color/note_text_2"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/note_folder"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textAllCaps="false"
+            android:background="@drawable/note_folder"
+            android:fontFamily="sans-serif-medium"
+            android:text="Important"
+            android:textColor="@color/note_folder_text"
+            android:textSize="@dimen/note_folder_text_size"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/note_body_text_decoration"
+        android:textSize="@dimen/note_body_size"
+        android:textColor="@color/note_text_1"
+        android:text="Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. \n\nThe Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen."
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <room106.app.notepad.NoteCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Far far away, behind the word mountains. Far far away, behind the word mountains.  Far far away, behind the word mountains" />
+
+        <room106.app.notepad.NoteCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="40dp"
+            android:text="Make an apoitment" />
+
+        <room106.app.notepad.NoteCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Take a photo"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
