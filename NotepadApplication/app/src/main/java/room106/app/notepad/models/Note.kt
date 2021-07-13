@@ -34,8 +34,8 @@ class Note : Parcelable {
 
         folder = parcel.readString()!!
         date = parcel.readString()!!
-//        time = parcel.readString()!!
-//        isHighlighted = parcel.readByte() == 0.toByte()
+        time = parcel.readString()!!
+        isHighlighted = parcel.readByte() == 0.toByte()
     }
 
     constructor(title: String,
@@ -72,8 +72,8 @@ class Note : Parcelable {
 
         p0?.writeString(folder)
         p0?.writeString(date)
-//        p0?.writeString(time)
-//        p0?.writeByte((if (isHighlighted) 1 else 0).toByte())
+        p0?.writeString(time)
+        p0?.writeByte((if (isHighlighted) 1 else 0).toByte())
     }
 
     companion object CREATOR : Parcelable.Creator<Note> {
