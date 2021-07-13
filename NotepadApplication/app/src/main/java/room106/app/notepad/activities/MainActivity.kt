@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import room106.app.notepad.R
-import room106.app.notepad.TabPagerAdapter
+import room106.app.notepad.fragments.TabPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 

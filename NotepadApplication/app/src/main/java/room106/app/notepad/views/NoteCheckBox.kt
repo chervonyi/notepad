@@ -1,4 +1,4 @@
-package room106.app.notepad
+package room106.app.notepad.views
 
 import android.content.Context
 import android.content.res.Resources
@@ -6,11 +6,9 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatCheckBox
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
+import room106.app.notepad.R
 import room106.app.notepad.models.Task
 
 class NoteCheckBox: AppCompatCheckBox {
@@ -56,6 +54,23 @@ class NoteCheckBox: AppCompatCheckBox {
         text = task.title
         isChecked = task.done
     }
+
+    private var _isHighlighted = false
+    var isHighlighted: Boolean
+        get() = _isHighlighted
+        set(value) {
+            _isHighlighted = value
+
+            if (value) {
+                buttonDrawable = ContextCompat.getDrawable(context,
+                    R.drawable.note_checkbox_button_highlighted
+                )
+                setTextColor(context.getColor(R.color.note_block_highlighted_text_1))
+            } else {
+                buttonDrawable = ContextCompat.getDrawable(context, R.drawable.note_checkbox_button)
+                setTextColor(context.getColor(R.color.note_block_text_1))
+            }
+        }
 
 
     val Int.px: Int

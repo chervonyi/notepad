@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/note_block"
     android:gravity="center"
     android:padding="@dimen/note_padding">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/folderImageView"
         android:layout_width="@dimen/folder_block_icon_size"
         android:layout_height="@dimen/folder_block_icon_size"
         android:src="@drawable/ic_folder_solid"

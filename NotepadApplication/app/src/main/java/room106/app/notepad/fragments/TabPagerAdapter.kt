@@ -1,4 +1,4 @@
-package room106.app.notepad
+package room106.app.notepad.fragments
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -1,4 +1,4 @@
-package room106.app.notepad
+package room106.app.notepad.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
+import room106.app.notepad.R
 import room106.app.notepad.models.Note
 import room106.app.notepad.models.Task
+import room106.app.notepad.views.NoteView
 
 class AllNotesTabFragment : Fragment() {
 
@@ -34,7 +36,7 @@ class AllNotesTabFragment : Fragment() {
 
         val notes = ArrayList<Note>().apply {
             add(Note("Note 1", "My first body.", tasks, "Personal", "Oct 10", "14:20", false))
-            add(Note("Note 2", "My second body.", tasks, "Important", "Oct 12", "20:10", false))
+            add(Note("Note 2", "My second body.", tasks, "Important", "Oct 12", "20:10", true))
             add(Note("Note 3", "My third body.", tasks, "Secret", "Oct 13", "16:34", false))
         }
 

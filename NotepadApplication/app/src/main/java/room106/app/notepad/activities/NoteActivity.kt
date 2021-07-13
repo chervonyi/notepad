@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.LinearLayoutCompat
-import room106.app.notepad.NoteCheckBox
+import room106.app.notepad.views.NoteCheckBox
 import room106.app.notepad.R
 import room106.app.notepad.models.Note
 

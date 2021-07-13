@@ -72,18 +72,18 @@
         android:orientation="vertical"
         android:layout_marginTop="20dp">
 
-<!--        <room106.app.notepad.NoteCheckBox-->
+<!--        <room106.app.notepad.views.NoteCheckBox-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:text="Far far away, behind the word mountains. Far far away, behind the word mountains.  Far far away, behind the word mountains" />-->
 
-<!--        <room106.app.notepad.NoteCheckBox-->
+<!--        <room106.app.notepad.views.NoteCheckBox-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:drawablePadding="40dp"-->
 <!--            android:text="Make an apoitment" />-->
 
-<!--        <room106.app.notepad.NoteCheckBox-->
+<!--        <room106.app.notepad.views.NoteCheckBox-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:text="Take a photo"/>-->
