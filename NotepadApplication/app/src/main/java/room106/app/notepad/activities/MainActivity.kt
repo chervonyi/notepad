@@ -1,7 +1,10 @@
 package room106.app.notepad.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import room106.app.notepad.R
@@ -24,16 +27,19 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+            override fun onTabReselected(tab: TabLayout.Tab) { }
         })
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+    }
+
+    fun onClickFloatingButton(v: View) {
+        if (tabLayout.selectedTabPosition == 0) {
+            val intent = Intent(this, NoteActivity::class.java)
+            startActivity(intent)
+        }
+
+        // TODO - ELSE -> Go to CreateFolder process
     }
 }

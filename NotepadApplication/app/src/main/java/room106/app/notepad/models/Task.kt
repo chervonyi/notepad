@@ -1,5 +1,11 @@
 package room106.app.notepad.models
 
-class Task(val title: String, val done: Boolean) {
+import com.google.gson.annotations.Expose
+
+class Task(@Expose val title: String, @Expose val status: Boolean) {
+
+    fun isNotBlank() : Boolean {
+        return title.isNotBlank()
+    }
 
 }

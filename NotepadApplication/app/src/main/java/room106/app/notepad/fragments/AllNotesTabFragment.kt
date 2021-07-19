@@ -1,14 +1,18 @@
 package room106.app.notepad.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
+import com.google.gson.Gson
 import room106.app.notepad.R
+import room106.app.notepad.models.JSONFileReader
 import room106.app.notepad.models.Note
 import room106.app.notepad.models.Task
+import room106.app.notepad.models.Vault
 import room106.app.notepad.views.NoteView
 
 class AllNotesTabFragment : Fragment() {
@@ -28,25 +32,34 @@ class AllNotesTabFragment : Fragment() {
         leftColumn = view.findViewById(R.id.leftColumn)
         rightColumn = view.findViewById(R.id.rightColumn)
 
-
-        val tasks = ArrayList<Task>().apply {
-            add(Task("Check emails", false))
-            add(Task("Write text", false))
-        }
-
-        val notes = ArrayList<Note>().apply {
-            add(Note("Note 1", "My first body.", tasks, "Personal", "Oct 10", "14:20", false))
-            add(Note("Note 2", "My second body.", tasks, "Important", "Oct 12", "20:10", true))
-            add(Note("Note 3", "My third body.", tasks, "Secret", "Oct 13", "16:34", false))
-        }
-
-        fillData(notes)
-
         return view
     }
 
-    private fun fillData(notes: ArrayList<Note>) {
-        for (note in notes) {
+    override fun onResume() {
+        super.onResume()
+
+        readNotesFromJSONFile()
+    }
+
+    private fun readNotesFromJSONFile() {
+//        JSONFileReader().saveVault(requireContext(), "")
+
+        if (Vault.instance == null) {
+            Vault.instance = JSONFileReader().readVault(requireContext())
+        }
+
+        fillData(Vault.instance!!.notes)
+    }
+
+    private fun fillData(notes: HashMap<Int, Note>?) {
+        leftColumn.removeAllViews()
+        rightColumn.removeAllViews()
+        nextLeftColumn = true
+
+        notes ?: return
+
+        Log.d("Test", "FillData. Notes.size: " + notes.size)
+        for ((id, note) in notes) {
             val noteView = NoteView(requireContext(), note)
 
             if (nextLeftColumn) {

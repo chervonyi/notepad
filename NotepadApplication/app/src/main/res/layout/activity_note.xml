@@ -13,16 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note title"
+            android:hint="@string/edit_text_hint"
             android:paddingBottom="20dp"
             android:layout_toStartOf="@id/note_folder"
+            android:inputType="textCapSentences"
+            android:imeOptions="actionNext"
             android:fontFamily="sans-serif-medium"
             android:textSize="@dimen/note_title_size"
-            android:textColor="@color/note_text_0"/>
+            android:textColor="@color/note_text_0"
+            android:background="@null"/>
 
         <TextView
             android:id="@+id/date_time"
@@ -51,7 +54,7 @@
 
     </RelativeLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/note_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,10 +62,11 @@
         android:paddingStart="20dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:hint="@string/body_hint"
         android:background="@drawable/note_body_text_decoration"
         android:textSize="@dimen/note_body_size"
         android:textColor="@color/note_text_1"
-        android:text="Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. \n\nThe Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen."
         tools:ignore="RtlSymmetry" />
 
     <androidx.appcompat.widget.LinearLayoutCompat

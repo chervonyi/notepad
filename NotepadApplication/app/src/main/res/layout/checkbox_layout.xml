@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/note_body_size"
+        android:textColor="@color/note_text_1"
+        android:paddingTop="3dp"
+        android:hint="Task"
+        android:minLines="1"
+        android:paddingStart="30dp"
+        android:background="@null"/>
+
+    <room106.app.notepad.views.NoteCheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:text=""/>
+
+</RelativeLayout>

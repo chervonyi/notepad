@@ -1,27 +1,32 @@
 package room106.app.notepad.models
 
+import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import room106.app.notepad.R
 
 class Note : Parcelable {
 
-    var title = ""
+
+    @Expose var id = 0
         private set
-    var body = ""
-        private set
-    var tasks = ArrayList<Task>()
-        private set
-    var folder = ""
-        private set
-    var date = ""
-        private set
-    var time = ""
-        private set
-    var isHighlighted = false
-        private set
+    @Expose var title = ""
+    @Expose var body = ""
+    @Expose var tasks = ArrayList<Task>()
+    @Expose var folder = ""
+    @Expose var date = ""
+    @Expose var time = ""
+    @Expose var isHighlighted = false
+
+    constructor() {}
+
+    private val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"
+
+    private val NOTE_UNIQUE_ID_KEY = "NOTE_UNQIE_ID_KEY"
 
     constructor(parcel: Parcel) {
-
+        id = parcel.readInt()
         title = parcel.readString()!!
         body = parcel.readString()!!
 
@@ -35,24 +40,7 @@ class Note : Parcelable {
         folder = parcel.readString()!!
         date = parcel.readString()!!
         time = parcel.readString()!!
-        isHighlighted = parcel.readByte() == 0.toByte()
-    }
-
-    constructor(title: String,
-                body: String,
-                tasks: ArrayList<Task>,
-                folder: String,
-                date: String,
-                time: String,
-                isHighlighted: Boolean) {
-
-        this.title = title
-        this.body = body
-        this.tasks = tasks
-        this.folder = folder
-        this.date = date
-        this.time = time
-        this.isHighlighted = isHighlighted
+        isHighlighted = parcel.readInt() == 1
     }
 
     override fun describeContents(): Int {
@@ -60,6 +48,7 @@ class Note : Parcelable {
     }
 
     override fun writeToParcel(p0: Parcel?, p1: Int) {
+        p0?.writeInt(id)
         p0?.writeString(title)
         p0?.writeString(body)
 
@@ -67,13 +56,30 @@ class Note : Parcelable {
 
         for (task in tasks) {
             p0?.writeString(task.title)
-            p0?.writeByte((if (task.done) 1 else 0).toByte())
+            p0?.writeByte((if (task.status) 1 else 0).toByte())
         }
 
         p0?.writeString(folder)
         p0?.writeString(date)
         p0?.writeString(time)
-        p0?.writeByte((if (isHighlighted) 1 else 0).toByte())
+        p0?.writeInt(if (isHighlighted) 1 else 0)
+    }
+
+    fun isNotBlank() : Boolean {
+        return title.isNotBlank() || body.isNotBlank() || tasks.isNotEmpty()
+    }
+
+
+    fun assignUniqueId(context: Context) : Int {
+        val sharedPref = context.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+        id = sharedPref.getInt(NOTE_UNIQUE_ID_KEY, 100)
+
+        with(sharedPref.edit()) {
+            putInt(NOTE_UNIQUE_ID_KEY, id + 1)
+            apply()
+        }
+
+        return id
     }
 
     companion object CREATOR : Parcelable.Creator<Note> {

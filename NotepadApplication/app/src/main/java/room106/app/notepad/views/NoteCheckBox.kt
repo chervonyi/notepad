@@ -3,6 +3,7 @@ package room106.app.notepad.views
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Paint
+import android.text.InputType
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -37,6 +38,7 @@ class NoteCheckBox: AppCompatCheckBox {
         buttonDrawable = ContextCompat.getDrawable(context, R.drawable.note_checkbox_button)
         setTextColor(context.getColor(R.color.note_block_text_1))
         setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.note_block_text_size))
+        inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         background = null
         gravity = Gravity.TOP
         minimumHeight = 0
@@ -52,7 +54,7 @@ class NoteCheckBox: AppCompatCheckBox {
 
     private fun assignData(task: Task) {
         text = task.title
-        isChecked = task.done
+        isChecked = task.status
     }
 
     private var _isHighlighted = false

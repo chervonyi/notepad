@@ -19,7 +19,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         app:tint="@android:color/white"
-        android:src="@drawable/ic_add_outline"/>
+        android:src="@drawable/ic_add_outline"
+        android:onClick="onClickFloatingButton"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

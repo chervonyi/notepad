@@ -4,4 +4,6 @@
     <string name="tab_folders">Folders</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello All Notes fragment</string>
+    <string name="edit_text_hint">Title</string>
+    <string name="body_hint">Note body text..</string>
 </resources>
