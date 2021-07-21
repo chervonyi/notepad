@@ -2,6 +2,7 @@ package room106.app.notepad.views
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
@@ -12,22 +13,25 @@ import room106.app.notepad.R
 import room106.app.notepad.activities.MainActivity
 import room106.app.notepad.activities.NoteActivity
 import room106.app.notepad.models.Note
+import room106.app.notepad.models.Vault
 
 class NoteView: LinearLayoutCompat {
 
-    // Views
+    //region Views
     private lateinit var titleTextView: TextView
     private lateinit var bodyTextView: TextView
     private lateinit var tasksLinearLayoutCompat: LinearLayoutCompat
     private lateinit var folderTextView: TextView
     private lateinit var dateTextView: TextView
+    //endregion
 
     private var note: Note? = null
 
+    //region Constructors
     constructor(context: Context, note: Note) : super(context) {
         this.note = note
         initializeView(context)
-        assignData(note)
+        setData(note)
     }
 
     constructor(context: Context) : super(context) {
@@ -43,6 +47,7 @@ class NoteView: LinearLayoutCompat {
     ) {
         initializeView(context)
     }
+    //endregion
 
     private fun initializeView(context: Context) {
         View.inflate(context, R.layout.note_layout, this)
@@ -64,7 +69,6 @@ class NoteView: LinearLayoutCompat {
     }
 
     private fun setHighlight(isHighlighted: Boolean) {
-
         background = ContextCompat.getDrawable(context, R.drawable.note_block)
         var text0Color = ContextCompat.getColor(context, R.color.note_block_text_0)
         var text1Color = ContextCompat.getColor(context, R.color.note_block_text_1)
@@ -94,7 +98,7 @@ class NoteView: LinearLayoutCompat {
         }
     }
 
-    private fun assignData(note: Note) {
+    private fun setData(note: Note) {
         titleTextView.text = note.title
         bodyTextView.text = note.body
         folderTextView.text = note.folder
@@ -102,13 +106,27 @@ class NoteView: LinearLayoutCompat {
 
         tasksLinearLayoutCompat.removeAllViews()
 
-        for (task in note.tasks) {
-            val taskCheckBox = NoteCheckBox(context, task)
+        for (i in 0 until note.tasks.size) {
+            val taskCheckBox = NoteCheckBox(context, note.tasks[i])
+            taskCheckBox.setOnCheckedChangeListener { button, b ->
+                note.tasks[i].status = b
+                button.paintFlags = if (b) {
+                    Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    0
+                }
+
+                updateJSON()
+            }
             tasksLinearLayoutCompat.addView(taskCheckBox)
         }
 
         setHighlight(note.isHighlighted)
     }
 
-
+    private fun updateJSON() {
+        if (note != null && note!!.id != 0) {
+            Vault.instance?.update(context, note!!)
+        }
+    }
 }

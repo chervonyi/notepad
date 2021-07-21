@@ -30,4 +30,8 @@
     <style name="Notepad.TabItem" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="Notepad.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorSecondary">@color/text_0</item>
+    </style>
 </resources>

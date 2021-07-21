@@ -6,4 +6,6 @@
     <string name="hello_blank_fragment">Hello All Notes fragment</string>
     <string name="edit_text_hint">Title</string>
     <string name="body_hint">Note body text..</string>
+    <string name="menu_highlight">Highlight</string>
+    <string name="menu_unhighlight">Unhighlight</string>
 </resources>

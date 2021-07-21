@@ -48,7 +48,7 @@ class JSONFileReader {
                 line = bufferedReader.readLine()
             }
 
-            Log.d("Test", "readNotesFromJSONFile: $sb")
+//            Log.d("Test", "readNotesFromJSONFile: $sb")
             if (sb.isEmpty()) {
                 return Vault()
             }

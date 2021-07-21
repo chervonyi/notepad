@@ -21,7 +21,7 @@ class Vault {
 
     private fun updateJSONFile(context: Context) {
         jsonFileReader.saveVault(context, JSON)
-        Log.d("Test", "JSON: $JSON")
+        Log.d("Test", "UPDATE JSON: $JSON")
     }
 
     var JSON: String

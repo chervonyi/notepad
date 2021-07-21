@@ -7,11 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
-import com.google.gson.Gson
 import room106.app.notepad.R
 import room106.app.notepad.models.JSONFileReader
 import room106.app.notepad.models.Note
-import room106.app.notepad.models.Task
 import room106.app.notepad.models.Vault
 import room106.app.notepad.views.NoteView
 
@@ -37,21 +35,19 @@ class AllNotesTabFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        readNotesFromJSONFile()
+        updateVaultFromJSON()
+        updateData(Vault.instance!!.notes)
     }
 
-    private fun readNotesFromJSONFile() {
+    private fun updateVaultFromJSON() {
 //        JSONFileReader().saveVault(requireContext(), "")
 
         if (Vault.instance == null) {
             Vault.instance = JSONFileReader().readVault(requireContext())
         }
-
-        fillData(Vault.instance!!.notes)
     }
 
-    private fun fillData(notes: HashMap<Int, Note>?) {
+    private fun updateData(notes: HashMap<Int, Note>?) {
         leftColumn.removeAllViews()
         rightColumn.removeAllViews()
         nextLeftColumn = true
@@ -59,7 +55,7 @@ class AllNotesTabFragment : Fragment() {
         notes ?: return
 
         Log.d("Test", "FillData. Notes.size: " + notes.size)
-        for ((id, note) in notes) {
+        for ((_, note) in notes) {
             val noteView = NoteView(requireContext(), note)
 
             if (nextLeftColumn) {
@@ -71,5 +67,4 @@ class AllNotesTabFragment : Fragment() {
             nextLeftColumn = !nextLeftColumn
         }
     }
-
 }

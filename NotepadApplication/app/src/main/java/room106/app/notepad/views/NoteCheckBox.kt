@@ -16,7 +16,7 @@ class NoteCheckBox: AppCompatCheckBox {
 
     constructor(context: Context, task: Task) : super(context) {
         initializeView(context)
-        assignData(task)
+        setData(task)
     }
 
     constructor(context: Context) : super(context) {
@@ -42,19 +42,17 @@ class NoteCheckBox: AppCompatCheckBox {
         background = null
         gravity = Gravity.TOP
         minimumHeight = 0
-
-        setOnCheckedChangeListener { compoundButton, b ->
-            paintFlags = if (b) {
-                Paint.STRIKE_THRU_TEXT_FLAG
-            } else {
-                0
-            }
-        }
     }
 
-    private fun assignData(task: Task) {
+    private fun setData(task: Task) {
         text = task.title
         isChecked = task.status
+
+        paintFlags = if (isChecked) {
+            Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            0
+        }
     }
 
     private var _isHighlighted = false

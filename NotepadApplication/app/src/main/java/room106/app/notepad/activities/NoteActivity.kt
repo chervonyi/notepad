@@ -3,62 +3,89 @@ package room106.app.notepad.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.LinearLayoutCompat
-import com.google.gson.Gson
+import com.google.android.material.appbar.MaterialToolbar
 import room106.app.notepad.R
 import room106.app.notepad.interfaces.CheckboxEditListener
 import room106.app.notepad.models.Note
 import room106.app.notepad.models.Task
 import room106.app.notepad.models.Vault
-import room106.app.notepad.views.NoteCheckBox
 import room106.app.notepad.views.NoteCheckBoxEditable
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class NoteActivity : AppCompatActivity(), CheckboxEditListener {
 
-    // Views
+    //region Views
+    private lateinit var topAppBar: MaterialToolbar
     private lateinit var title: TextView
     private lateinit var folder: AppCompatButton
     private lateinit var date: TextView
     private lateinit var body: TextView
     private lateinit var tasks: LinearLayoutCompat
-
-    private var note: Note? = null
+    //endregion
 
     // Data
+    private var note: Note? = null
     private var creationDate : Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
 
-        // Connect views
+        //region Connect views
+        topAppBar = findViewById(R.id.topAppBar)
         title = findViewById(R.id.note_title)
         folder = findViewById(R.id.note_folder)
         date = findViewById(R.id.date_time)
         body = findViewById(R.id.note_body)
         tasks = findViewById(R.id.note_tasks)
+        //endregion
 
+        //region Listeners
+        topAppBar.setNavigationOnClickListener {
+            updateModelOnFinish()
+            finish()
+        }
+
+        topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_highlight -> {
+
+                    note!!.isHighlighted = !note!!.isHighlighted
+                    if (note!!.isHighlighted) {
+                        it.title = getString(R.string.menu_unhighlight)
+                    } else {
+                        it.title = getString(R.string.menu_highlight)
+                    }
+                }
+            }
+            true
+        }
+
+        //endregion
 
         note = intent.getParcelableExtra("note")
 
         if (note != null) {
-            updateData(note!!)
-            Log.d("Test", "Note: " + note!!.title)
+            updateView(note!!)
         } else {
-            prepareNewNote()
-            Log.d("Test", "Note is null")
+            prepareNoteInstance()
         }
+
+        updateMenuItems()
     }
 
 
+
     @SuppressLint("SimpleDateFormat")
-    private fun prepareNewNote() {
+    private fun prepareNoteInstance() {
         // Set current date and time as a 'creation date'
         creationDate = Calendar.getInstance().time
         val format = SimpleDateFormat("MMM d, HH:mm")
@@ -66,23 +93,19 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
 
         val emptyCheckbox = NoteCheckBoxEditable(this, this)
         tasks.addView(emptyCheckbox)
+
+        note = Note()
+
+        val dateFormat = SimpleDateFormat("MMM d")
+        val timeFormat = SimpleDateFormat("HH:mm")
+        note!!.date = dateFormat.format(creationDate?.time)
+        note!!.time = timeFormat.format(creationDate?.time)
+
+        note!!.folder = "" // NO-FOLDER
     }
 
-
     @SuppressLint("SimpleDateFormat")
-    private fun analyzeEnteredData() {
-
-        if (note == null) {
-            note = Note()
-
-            val dateFormat = SimpleDateFormat("MMM d")
-            val timeFormat = SimpleDateFormat("HH:mm")
-            note!!.date = dateFormat.format(creationDate?.time)
-            note!!.time = timeFormat.format(creationDate?.time)
-
-            note!!.folder = "" // NO-FOLDER
-        }
-
+    private fun updateModelOnFinish() {
         note!!.title = title.text.toString()
         note!!.body = body.text.toString()
 
@@ -101,15 +124,14 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
         }
 
         if (note!!.id != 0) {
+            Log.d("Test", "Updating note in Vault")
             Vault.instance?.update(this, note!!)
         }
-
-//        Log.d("Test", "Updated note: " + Gson().toJson(note))
     }
 
 
     @SuppressLint("SetTextI18n")
-    private fun updateData(note: Note) {
+    private fun updateView(note: Note) {
         title.text = note.title
         date.text = note.date + ", " + note.time
         folder.text = note.folder
@@ -123,10 +145,21 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
         }
     }
 
+    //region Other
+    private fun updateMenuItems() {
+        val it = topAppBar.menu.findItem(R.id.menu_highlight)
+        if (note!!.isHighlighted) {
+            it.title = getString(R.string.menu_unhighlight)
+        } else {
+            it.title = getString(R.string.menu_highlight)
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        analyzeEnteredData()
+        updateModelOnFinish()
     }
+    //endregion
 
     //region Task Checkbox Methods
     override fun createNewCheckbox(view: View) {

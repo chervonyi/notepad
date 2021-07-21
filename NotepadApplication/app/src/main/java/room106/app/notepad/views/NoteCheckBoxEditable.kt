@@ -1,6 +1,7 @@
 package room106.app.notepad.views
 
 import android.content.Context
+import android.graphics.Paint
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -63,6 +64,14 @@ class NoteCheckBoxEditable: RelativeLayout {
                 }
             }
             false
+        }
+
+        checkBox.setOnCheckedChangeListener { _, b ->
+            editText.paintFlags = if (b) {
+                Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                0
+            }
         }
 
         // TODO - Implement removing current checkbox on pressing Delete (if it's empty)
