@@ -73,6 +73,7 @@
                 android:text="Important"
                 android:textColor="@color/note_folder_text"
                 android:textSize="@dimen/note_folder_text_size"
+                android:onClick="onClickSelectFolder"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
         </RelativeLayout>

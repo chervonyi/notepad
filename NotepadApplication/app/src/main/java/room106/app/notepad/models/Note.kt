@@ -23,7 +23,7 @@ class Note : Parcelable {
 
     private val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"
 
-    private val NOTE_UNIQUE_ID_KEY = "NOTE_UNQIE_ID_KEY"
+    private val NOTE_UNIQUE_ID_KEY = "NOTE_UNIQUE_ID_KEY"
 
     constructor(parcel: Parcel) {
         id = parcel.readInt()

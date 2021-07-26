@@ -35,19 +35,10 @@ class AllNotesTabFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        updateVaultFromJSON()
-        updateData(Vault.instance!!.notes)
+        updateView(Vault.instance!!.notes)
     }
 
-    private fun updateVaultFromJSON() {
-//        JSONFileReader().saveVault(requireContext(), "")
-
-        if (Vault.instance == null) {
-            Vault.instance = JSONFileReader().readVault(requireContext())
-        }
-    }
-
-    private fun updateData(notes: HashMap<Int, Note>?) {
+    private fun updateView(notes: HashMap<Int, Note>?) {
         leftColumn.removeAllViews()
         rightColumn.removeAllViews()
         nextLeftColumn = true

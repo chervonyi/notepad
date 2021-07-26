@@ -9,6 +9,8 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import room106.app.notepad.R
 import room106.app.notepad.fragments.TabPagerAdapter
+import room106.app.notepad.models.JSONFileReader
+import room106.app.notepad.models.Vault
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,5 +43,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         // TODO - ELSE -> Go to CreateFolder process
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateVaultFromJSON()
+    }
+
+
+    private fun updateVaultFromJSON() {
+//        JSONFileReader().saveVault(requireContext(), "")
+
+        Log.d("Test", "MainActivity - updateVaultFromJSON")
+        Vault.instance = JSONFileReader().readVault(this)
+        Vault.instance?.checkInitialFolders(this)
     }
 }

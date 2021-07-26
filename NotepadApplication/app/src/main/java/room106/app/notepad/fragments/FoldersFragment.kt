@@ -1,6 +1,7 @@
 package room106.app.notepad.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
 import room106.app.notepad.R
 import room106.app.notepad.models.Folder
+import room106.app.notepad.models.JSONFileReader
+import room106.app.notepad.models.Vault
 import room106.app.notepad.views.FolderView
 
 class FoldersFragment : Fragment() {
@@ -28,19 +31,20 @@ class FoldersFragment : Fragment() {
         leftColumn = view.findViewById(R.id.leftColumn)
         rightColumn = view.findViewById(R.id.rightColumn)
 
-        val folders = ArrayList<Folder>().apply {
-            add(Folder("Important", 2, false))
-            add(Folder("Personal", 4, true))
-            add(Folder("Work", 8, false))
-        }
-
-        fillData(folders)
-
         return view
     }
 
-    private fun fillData(folders: ArrayList<Folder>) {
-        for (folder in folders) {
+    override fun onResume() {
+        super.onResume()
+        updateView(Vault.instance!!.folders)
+    }
+
+    private fun updateView(folders: HashMap<Int, Folder>) {
+        leftColumn.removeAllViews()
+        rightColumn.removeAllViews()
+        nextLeftColumn = true
+
+        for ((id, folder) in folders) {
             val folderView = FolderView(requireContext(), folder)
 
             if (nextLeftColumn) {

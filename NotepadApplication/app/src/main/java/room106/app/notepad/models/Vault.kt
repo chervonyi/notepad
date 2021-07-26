@@ -14,6 +14,10 @@ class Vault {
     var notes = HashMap<Int, Note>()
         private set
 
+    @Expose
+    var folders = HashMap<Int, Folder>()
+        private set
+
     fun update(context: Context, note: Note) {
         notes[note.id] = note
         updateJSONFile(context)
@@ -22,6 +26,35 @@ class Vault {
     private fun updateJSONFile(context: Context) {
         jsonFileReader.saveVault(context, JSON)
         Log.d("Test", "UPDATE JSON: $JSON")
+    }
+
+    fun checkInitialFolders(context: Context) {
+        if (Folder.getNextUniqueIDKey(context) == 100) {
+            Log.d("Test", "Creating the initials folders!")
+            // Should create initials folders
+            val folder1 = Folder("Important", false).apply {
+                assignUniqueId(context)
+            }
+            val folder2 = Folder("Work", false).apply {
+                assignUniqueId(context)
+            }
+
+            folders[folder1.id] = folder1
+            folders[folder2.id] = folder2
+
+            updateJSONFile(context)
+        } else {
+            Log.d("Test", "Initials folders had been already created!")
+        }
+    }
+
+    fun getFolderArray(): ArrayList<String> {
+        val array = ArrayList<String>()
+        array.add("No folder")
+        for ((id, folder) in folders) {
+            array.add(folder.title)
+        }
+        return array
     }
 
     var JSON: String

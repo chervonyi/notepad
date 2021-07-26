@@ -8,4 +8,6 @@
     <string name="body_hint">Note body text..</string>
     <string name="menu_highlight">Highlight</string>
     <string name="menu_unhighlight">Unhighlight</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
 </resources>
