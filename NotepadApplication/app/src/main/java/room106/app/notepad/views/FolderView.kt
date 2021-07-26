@@ -1,6 +1,7 @@
 package room106.app.notepad.views
 
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -10,6 +11,8 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import room106.app.notepad.R
+import room106.app.notepad.activities.FolderActivity
+import room106.app.notepad.activities.MainActivity
 import room106.app.notepad.models.Folder
 
 class FolderView: LinearLayoutCompat {
@@ -49,13 +52,13 @@ class FolderView: LinearLayoutCompat {
         countTextView = findViewById(R.id.folderCount)
         iconImageView = findViewById(R.id.folderImageView)
 
-//        setOnClickListener {
-//            if (note != null) {
-//                val intent = Intent(context, NoteActivity::class.java)
-//                intent.putExtra("note", note)
-//                (context as MainActivity).startActivity(intent)
-//            }
-//        }
+        setOnClickListener {
+            if (folder != null) {
+                val intent = Intent(context, FolderActivity::class.java)
+                intent.putExtra("folder_id", folder!!.id)
+                (context as MainActivity).startActivity(intent)
+            }
+        }
     }
 
     private fun setHighlight(isHighlighted: Boolean) {

@@ -11,8 +11,8 @@ class TabPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> AllNotesTabFragment()
-            1 -> FoldersFragment()
+            0 -> NotesListFragment()
+            1 -> FoldersListFragment()
             else -> Fragment()
         }
     }

@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
 import room106.app.notepad.R
-import room106.app.notepad.models.Folder
 import room106.app.notepad.models.JSONFileReader
+import room106.app.notepad.models.Note
 import room106.app.notepad.models.Vault
-import room106.app.notepad.views.FolderView
+import room106.app.notepad.views.NoteView
 
-class FoldersFragment : Fragment() {
+class NotesListFragment : Fragment() {
 
     // Views
     private lateinit var leftColumn: LinearLayoutCompat
@@ -21,12 +21,13 @@ class FoldersFragment : Fragment() {
 
     private var nextLeftColumn = true
 
+    var folderID = -1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_folders, container, false)
+        val view = inflater.inflate(R.layout.fragment_all_notes_tab, container, false)
 
         leftColumn = view.findViewById(R.id.leftColumn)
         rightColumn = view.findViewById(R.id.rightColumn)
@@ -36,21 +37,29 @@ class FoldersFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        updateView(Vault.instance!!.folders)
+        Log.d("Test", "Update NotesFragment with $folderID id")
+        if (folderID == -1) {
+            updateView(Vault.instance!!.notes)
+        } else {
+            updateView(Vault.instance!!.getNotesByFolder(folderID))
+        }
     }
 
-    private fun updateView(folders: HashMap<Int, Folder>) {
+    private fun updateView(notes: Map<Int, Note>?) {
         leftColumn.removeAllViews()
         rightColumn.removeAllViews()
         nextLeftColumn = true
 
-        for ((id, folder) in folders) {
-            val folderView = FolderView(requireContext(), folder)
+        notes ?: return
+
+        Log.d("Test", "FillData. Notes.size: " + notes.size)
+        for ((_, note) in notes) {
+            val noteView = NoteView(requireContext(), note)
 
             if (nextLeftColumn) {
-                leftColumn.addView(folderView)
+                leftColumn.addView(noteView)
             } else {
-                rightColumn.addView(folderView)
+                rightColumn.addView(noteView)
             }
 
             nextLeftColumn = !nextLeftColumn
