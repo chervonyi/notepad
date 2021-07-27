@@ -10,4 +10,5 @@
     <string name="menu_unhighlight">Unhighlight</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+    <string name="folder_title_hint">Folder title</string>
 </resources>

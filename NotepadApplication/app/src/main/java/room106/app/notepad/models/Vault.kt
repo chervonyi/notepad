@@ -23,9 +23,14 @@ class Vault {
         updateJSONFile(context)
     }
 
+    fun update(context: Context, folder: Folder) {
+        folders[folder.id] = folder
+        updateJSONFile(context)
+    }
+
     private fun updateJSONFile(context: Context) {
         jsonFileReader.saveVault(context, JSON)
-        Log.d("Test", "UPDATE JSON: $JSON")
+//        Log.d("Test", "UPDATE JSON: $JSON")
     }
 
     fun checkInitialFolders(context: Context) {
