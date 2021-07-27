@@ -39,8 +39,10 @@ class NotesListFragment : Fragment() {
         super.onResume()
         Log.d("Test", "Update NotesFragment with $folderID id")
         if (folderID == -1) {
+            // Show ALL notes
             updateView(Vault.instance!!.notes)
         } else {
+            // Show notes for selected folder
             updateView(Vault.instance!!.getNotesByFolder(folderID))
         }
     }

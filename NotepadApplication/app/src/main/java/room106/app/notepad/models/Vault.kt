@@ -53,7 +53,7 @@ class Vault {
         }
     }
 
-    fun getFolderArray(): ArrayList<String> {
+    fun getFoldersArray(): ArrayList<String> {
         val array = ArrayList<String>()
         array.add("No folder")
         for ((id, folder) in folders) {
@@ -62,10 +62,10 @@ class Vault {
         return array
     }
 
-    fun getNotesByFolder(id: Int): Map<Int, Note> {
-        val folderName = folders[id]?.title ?: HashMap<Int, Note>()
+    fun getNotesByFolder(folderId: Int): Map<Int, Note> {
+//        val folderName = folders[id]?.title ?: HashMap<Int, Note>()
         return notes.filter {
-            it.value.folder == folderName
+            it.value.folder == folderId
         }
     }
 
@@ -75,6 +75,20 @@ class Vault {
             val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
             return gson.toJson(this)
         }
+
+    fun getFolderNameById(id: Int) : String {
+        return folders[id]?.title ?: ""
+    }
+
+    fun getFolderIdByTitle(title: String?) : Int {
+        title ?: return -1
+        for ((i, folder) in folders) {
+            if (folder.title == title) {
+                return folder.id
+            }
+        }
+        return -1
+    }
 
     companion object {
         var instance: Vault? = null

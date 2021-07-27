@@ -62,7 +62,6 @@ class FolderView: LinearLayoutCompat {
     }
 
     private fun setHighlight(isHighlighted: Boolean) {
-
         background = ContextCompat.getDrawable(context, R.drawable.note_block)
         var text0Color = ContextCompat.getColor(context, R.color.note_block_text_0)
         var text1Color = ContextCompat.getColor(context, R.color.note_block_text_1)
@@ -79,7 +78,6 @@ class FolderView: LinearLayoutCompat {
         iconImageView.setColorFilter(iconTint)
         titleTextView.setTextColor(text0Color)
         countTextView.setTextColor(text1Color)
-
     }
 
     private fun assignData(folder: Folder) {

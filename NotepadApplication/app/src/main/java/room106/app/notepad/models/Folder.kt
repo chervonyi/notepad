@@ -35,8 +35,8 @@ class Folder {
     var count: Int
         private set(value) {}
         get () {
-            // TODO - Implement count calculation
-            return 0
+            return Vault.instance?.getNotesByFolder(id)?.size ?: 0
+
         }
 
     companion object {

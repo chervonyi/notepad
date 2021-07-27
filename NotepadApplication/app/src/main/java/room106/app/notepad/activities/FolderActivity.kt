@@ -68,7 +68,12 @@ class FolderActivity : AppCompatActivity() {
 
                         builder.setPositiveButton("OK") { _, _ ->
                             folder?.title = editTextView.text.toString()
-                            topAppBar.title = editTextView.text.toString()
+//                            topAppBar.title = editTextView.text.toString()
+
+                            // Refresh activity to load notes with new folder title
+                            updateModelOnFinish()
+                            finish()
+                            startActivity(intent)
                         }
                         builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
 

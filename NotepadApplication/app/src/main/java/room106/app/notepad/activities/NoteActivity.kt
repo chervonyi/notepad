@@ -74,7 +74,8 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
 
         //endregion
 
-        note = intent.getParcelableExtra("note")
+        val intExtra = intent.getIntExtra("note", -1)
+        note = Vault.instance?.notes?.get(intExtra)
 
         if (note != null) {
             updateView(note!!)
@@ -84,8 +85,6 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
 
         updateMenuItems()
     }
-
-
 
     @SuppressLint("SimpleDateFormat")
     private fun prepareNoteInstance() {
@@ -104,7 +103,7 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
         note!!.date = dateFormat.format(creationDate?.time)
         note!!.time = timeFormat.format(creationDate?.time)
 
-        note!!.folder = "" // NO-FOLDER
+        note!!.folder = -1 // NO-FOLDER
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -137,7 +136,7 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
     private fun updateView(note: Note) {
         title.text = note.title
         date.text = note.date + ", " + note.time
-        folder.text = note.folder
+        folder.text = Vault.instance?.getFolderNameById(note.folder) ?: ""
         body.text = note.body
 
         tasks.removeAllViews()
@@ -151,16 +150,16 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
     fun onClickSelectFolder(v: View) {
         note ?: return
 
-        val allFolders = Vault.instance?.getFolderArray() ?: ArrayList()
-
+        val allFolders = Vault.instance?.getFoldersArray() ?: ArrayList()
+        val selectedFolderName = Vault.instance?.getFolderNameById(note!!.folder)
         var checkedItem = 0
-        allFolders.indexOf(note!!.folder).also {
-            if (it != -1) {
-                checkedItem = it
+
+        for (i in 1 until allFolders.size) {
+            if (allFolders[i] == selectedFolderName) {
+                checkedItem = i
+                break
             }
         }
-
-        Log.d("Test", "AllFolders: ${allFolders}")
 
         MaterialAlertDialogBuilder(this)
             .setTitle("Select folder")
@@ -169,12 +168,12 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
                 val lw: ListView = (dialog as AlertDialog).listView
 
                 if (lw.checkedItemPosition == 0) {
-                    note!!.folder = ""
-                    (v as AppCompatButton).text = note!!.folder
+                    note!!.folder = -1
+                    (v as AppCompatButton).text = Vault.instance?.getFolderNameById(note!!.folder)
                     // Set no-folder icon
                 } else {
-                    note!!.folder = allFolders[lw.checkedItemPosition]
-                    (v as AppCompatButton).text = note!!.folder
+                    note!!.folder = Vault.instance?.getFolderIdByTitle(allFolders[lw.checkedItemPosition]) ?: -1
+                    (v as AppCompatButton).text = Vault.instance?.getFolderNameById(note!!.folder)
                 }
             }
             .setSingleChoiceItems(allFolders.toTypedArray(), checkedItem) { _, _ -> }

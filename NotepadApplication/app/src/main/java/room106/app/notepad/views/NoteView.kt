@@ -62,7 +62,8 @@ class NoteView: LinearLayoutCompat {
         setOnClickListener {
             if (note != null) {
                 val intent = Intent(context, NoteActivity::class.java)
-                intent.putExtra("note", note)
+//                intent.putExtra("note", note)
+                intent.putExtra("note", note!!.id)
                 (context as MainActivity).startActivity(intent)
             }
         }
@@ -101,7 +102,7 @@ class NoteView: LinearLayoutCompat {
     private fun setData(note: Note) {
         titleTextView.text = note.title
         bodyTextView.text = note.body
-        folderTextView.text = note.folder
+        folderTextView.text = Vault.instance?.getFolderNameById(note.folder) ?: ""
         dateTextView.text = note.date
 
         tasksLinearLayoutCompat.removeAllViews()
