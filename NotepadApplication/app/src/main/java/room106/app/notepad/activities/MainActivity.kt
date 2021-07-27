@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         if (tabLayout.selectedTabPosition == 0) {
             val intent = Intent(this, NoteActivity::class.java)
             startActivity(intent)
+        } else {
+            (viewPager.adapter as TabPagerAdapter).createNewFolder()
         }
-
-        // TODO - ELSE -> Go to CreateFolder process
     }
 
     override fun onResume() {

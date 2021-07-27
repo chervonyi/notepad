@@ -90,6 +90,14 @@ class Vault {
         return -1
     }
 
+    fun createNewFolder(title: String, context: Context) {
+        val newFolder = Folder(title, false).apply {
+            assignUniqueId(context)
+        }
+
+        folders[newFolder.id] = newFolder
+    }
+
     companion object {
         var instance: Vault? = null
     }

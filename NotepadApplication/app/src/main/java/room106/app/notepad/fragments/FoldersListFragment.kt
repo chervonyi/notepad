@@ -39,7 +39,8 @@ class FoldersListFragment : Fragment() {
         updateView(Vault.instance!!.folders)
     }
 
-    private fun updateView(folders: HashMap<Int, Folder>) {
+    private fun updateView(folders: HashMap<Int, Folder>?) {
+        folders ?: return
         leftColumn.removeAllViews()
         rightColumn.removeAllViews()
         nextLeftColumn = true
@@ -55,5 +56,10 @@ class FoldersListFragment : Fragment() {
 
             nextLeftColumn = !nextLeftColumn
         }
+    }
+
+    fun createNewFolder() {
+        Vault.instance?.createNewFolder("New folder", requireContext())
+        updateView(Vault.instance?.folders)
     }
 }

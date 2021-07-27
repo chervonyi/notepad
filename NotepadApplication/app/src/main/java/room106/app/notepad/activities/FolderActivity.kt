@@ -64,11 +64,12 @@ class FolderActivity : AppCompatActivity() {
 
                         val inflatedView = LayoutInflater.from(this).inflate(R.layout.folder_input_layout, findViewById(android.R.id.content), false)
                         val editTextView = inflatedView.findViewById<AppCompatEditText>(R.id.input)
+                        editTextView.setText(folder!!.title)
+                        editTextView.setSelection(editTextView.text!!.length)
                         builder.setView(inflatedView)
 
                         builder.setPositiveButton("OK") { _, _ ->
                             folder?.title = editTextView.text.toString()
-//                            topAppBar.title = editTextView.text.toString()
 
                             // Refresh activity to load notes with new folder title
                             updateModelOnFinish()
