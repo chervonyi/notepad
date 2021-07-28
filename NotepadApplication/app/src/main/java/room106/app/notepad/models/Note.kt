@@ -17,6 +17,7 @@ class Note {
     @Expose var date = ""
     @Expose var time = ""
     @Expose var isHighlighted = false
+    @Expose var isLocked = false
 
 
     private val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"

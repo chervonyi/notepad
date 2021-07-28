@@ -8,6 +8,8 @@
     <string name="body_hint">Note body text..</string>
     <string name="menu_highlight">Highlight</string>
     <string name="menu_unhighlight">Unhighlight</string>
+    <string name="menu_lock">Lock</string>
+    <string name="menu_unlock">Unlock</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="folder_title_hint">Folder title</string>

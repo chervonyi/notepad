@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
@@ -23,6 +24,7 @@ class NoteView: LinearLayoutCompat {
     private lateinit var tasksLinearLayoutCompat: LinearLayoutCompat
     private lateinit var folderTextView: TextView
     private lateinit var dateTextView: TextView
+    private lateinit var iconImageView: AppCompatImageView
     //endregion
 
     private var note: Note? = null
@@ -30,7 +32,13 @@ class NoteView: LinearLayoutCompat {
     //region Constructors
     constructor(context: Context, note: Note) : super(context) {
         this.note = note
-        initializeView(context)
+
+        if (note.isLocked) {
+            initializeLockedNoteView(context)
+        } else {
+            initializeView(context)
+        }
+
         setData(note)
     }
 
@@ -69,6 +77,39 @@ class NoteView: LinearLayoutCompat {
         }
     }
 
+    private fun initializeLockedNoteView(context: Context) {
+        View.inflate(context, R.layout.locked_note_layout, this)
+
+        // Connect views
+        titleTextView = findViewById(R.id.titleTextView)
+        iconImageView = findViewById(R.id.iconImageView)
+
+        setOnClickListener {
+            if (note != null) {
+                // TODO - Go to PasscodeActivity
+//                val intent = Intent(context, NoteActivity::class.java)
+////                intent.putExtra("note", note)
+//                intent.putExtra("note", note!!.id)
+//                (context as MainActivity).startActivity(intent)
+            }
+        }
+    }
+
+    private fun setLockedNoteHighlight(isHighlighted: Boolean) {
+        background = ContextCompat.getDrawable(context, R.drawable.note_block)
+        var text0Color = ContextCompat.getColor(context, R.color.note_block_text_0)
+        var iconTint = ContextCompat.getColor(context, R.color.note_block_folder_background)
+
+        if (isHighlighted) {
+            background = ContextCompat.getDrawable(context, R.drawable.note_block_highlighted)
+            text0Color = ContextCompat.getColor(context, R.color.note_block_highlighted_text_0)
+            iconTint = ContextCompat.getColor(context, R.color.note_block_highlighted_text_0)
+        }
+
+        titleTextView.setTextColor(text0Color)
+        iconImageView.setColorFilter(iconTint)
+    }
+
     private fun setHighlight(isHighlighted: Boolean) {
         background = ContextCompat.getDrawable(context, R.drawable.note_block)
         var text0Color = ContextCompat.getColor(context, R.color.note_block_text_0)
@@ -101,6 +142,12 @@ class NoteView: LinearLayoutCompat {
 
     private fun setData(note: Note) {
         titleTextView.text = note.title
+
+        if (note.isLocked) {
+            setLockedNoteHighlight(note.isHighlighted)
+            return
+        }
+
         bodyTextView.text = note.body
         folderTextView.text = Vault.instance?.getFolderNameById(note.folder) ?: ""
         dateTextView.text = note.date

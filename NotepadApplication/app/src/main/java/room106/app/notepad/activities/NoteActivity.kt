@@ -68,6 +68,15 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
                         it.title = getString(R.string.menu_highlight)
                     }
                 }
+
+                R.id.menu_lock -> {
+                    note!!.isLocked = !note!!.isLocked
+                    if (note!!.isLocked) {
+                        it.title = getString(R.string.menu_unlock)
+                    } else {
+                        it.title = getString(R.string.menu_lock)
+                    }
+                }
             }
             true
         }

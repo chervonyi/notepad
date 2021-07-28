@@ -8,7 +8,7 @@
 
     <item android:id="@+id/menu_lock"
         android:icon="@drawable/ic_folder_solid"
-        android:title="Lock"
+        android:title="@string/menu_lock"
         app:showAsAction="collapseActionView"/>
 
     <item android:id="@+id/menu_duplicate"
