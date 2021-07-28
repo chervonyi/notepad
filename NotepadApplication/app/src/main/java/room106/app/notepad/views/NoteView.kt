@@ -13,6 +13,7 @@ import androidx.core.view.get
 import room106.app.notepad.R
 import room106.app.notepad.activities.MainActivity
 import room106.app.notepad.activities.NoteActivity
+import room106.app.notepad.activities.PasscodeActivity
 import room106.app.notepad.models.Note
 import room106.app.notepad.models.Vault
 
@@ -70,7 +71,6 @@ class NoteView: LinearLayoutCompat {
         setOnClickListener {
             if (note != null) {
                 val intent = Intent(context, NoteActivity::class.java)
-//                intent.putExtra("note", note)
                 intent.putExtra("note", note!!.id)
                 (context as MainActivity).startActivity(intent)
             }
@@ -86,11 +86,9 @@ class NoteView: LinearLayoutCompat {
 
         setOnClickListener {
             if (note != null) {
-                // TODO - Go to PasscodeActivity
-//                val intent = Intent(context, NoteActivity::class.java)
-////                intent.putExtra("note", note)
-//                intent.putExtra("note", note!!.id)
-//                (context as MainActivity).startActivity(intent)
+                val intent = Intent(context, PasscodeActivity::class.java)
+                // TODO - put note.id as extra
+                (context as MainActivity).startActivity(intent)
             }
         }
     }

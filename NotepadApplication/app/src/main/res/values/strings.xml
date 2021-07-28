@@ -13,4 +13,6 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="folder_title_hint">Folder title</string>
+    <string name="create_passcode_hint">This passcode will be common for all locked notes.<br/>You can change it any time.</string>
+    <string name="create_passcode_title">Create a passcode</string>
 </resources>

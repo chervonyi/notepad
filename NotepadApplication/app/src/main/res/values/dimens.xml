@@ -22,4 +22,7 @@
     <dimen name="note_padding">20dp</dimen>
 
     <dimen name="checkbox_size">20dp</dimen>
+
+    <dimen name="passcode_item_size">10dp</dimen>
+    <dimen name="passcode_items_divider">10dp</dimen>
 </resources>

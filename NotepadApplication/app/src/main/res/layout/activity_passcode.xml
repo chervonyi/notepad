@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".activities.PasscodeActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIconTint="@color/note_text_0"
+            android:background="@color/background"
+            app:navigationIcon="@drawable/ic_arrow_back_outline"
+            app:elevation="0dp"
+            android:theme="@style/Notepad.Toolbar"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/passcodeEditText"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:maxLength="4"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/note_padding"
+            android:background="@color/background">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iconImageView"
+                android:layout_width="@dimen/folder_block_icon_size"
+                android:layout_height="@dimen/folder_block_icon_size"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_lock_24"
+                android:tint="@color/accent"/>
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/create_passcode_title"
+                android:textColor="@color/note_block_text_0"
+                android:textSize="@dimen/note_block_title_size" />
+
+            <TextView
+                android:id="@+id/bodyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/create_passcode_hint"
+                android:textAlignment="center"
+                android:textColor="@color/note_block_text_1"
+                android:textSize="@dimen/note_block_text_size"
+                android:textStyle="italic" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/passcodeItemsLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:divider="@drawable/passcode_items_divider"
+                app:showDividers="middle"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:layout_width="@dimen/passcode_item_size"
+                    android:layout_height="@dimen/passcode_item_size"
+                    android:background="@drawable/passcode_item"/>
+
+                <View
+                    android:layout_width="@dimen/passcode_item_size"
+                    android:layout_height="@dimen/passcode_item_size"
+                    android:background="@drawable/passcode_item"/>
+
+                <View
+                    android:layout_width="@dimen/passcode_item_size"
+                    android:layout_height="@dimen/passcode_item_size"
+                    android:background="@drawable/passcode_item"/>
+
+                <View
+                    android:layout_width="@dimen/passcode_item_size"
+                    android:layout_height="@dimen/passcode_item_size"
+                    android:background="@drawable/passcode_item"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
