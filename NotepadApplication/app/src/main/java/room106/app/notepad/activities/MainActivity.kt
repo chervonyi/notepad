@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
 import room106.app.notepad.R
 import room106.app.notepad.fragments.TabPagerAdapter
@@ -14,6 +15,8 @@ import room106.app.notepad.models.Vault
 
 class MainActivity : AppCompatActivity() {
 
+    // Views
+    private lateinit var topAppBar: MaterialToolbar
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager
 
@@ -21,9 +24,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        topAppBar = findViewById(R.id.topAppBar)
         tabLayout = findViewById(R.id.tabLayout)
         viewPager = findViewById(R.id.viewPager)
 
+
+        //region Listeners
         viewPager.adapter = TabPagerAdapter(supportFragmentManager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -34,6 +40,18 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+
+        topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_change_passcode -> {
+                    val intent = Intent(this, PasscodeActivity::class.java)
+                    intent.putExtra("request", PasscodeActivity.CHANGE_PASSCODE_REQUEST)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
+        //endregion
     }
 
     fun onClickFloatingButton(v: View) {

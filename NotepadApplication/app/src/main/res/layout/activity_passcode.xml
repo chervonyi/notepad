@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:lineSpacingExtra="5sp"
-                android:text="@string/create_passcode_hint"
+                android:text="@string/create_passcode_body"
                 android:textAlignment="center"
                 android:textColor="@color/note_block_text_1"
                 android:textSize="@dimen/note_block_text_size"
@@ -112,19 +112,6 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submitButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_button_height"
-            android:layout_alignParentBottom="true"
-            android:text="Submit"
-            android:textAllCaps="false"
-            android:textColor="@color/note_block_highlighted_text_0"
-            android:textSize="@dimen/note_block_title_size"
-            android:background="@drawable/bottom_button"
-            android:visibility="visible"
-            android:onClick="onClickSubmit"/>
 
     </RelativeLayout>
 

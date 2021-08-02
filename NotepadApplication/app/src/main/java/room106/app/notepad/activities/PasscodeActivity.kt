@@ -3,13 +3,13 @@ package room106.app.notepad.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
+import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
@@ -21,10 +21,11 @@ import room106.app.notepad.models.LockManager
 
 class PasscodeActivity : AppCompatActivity() {
 
+    private lateinit var titleTextView: TextView
+    private lateinit var bodyTextView: TextView
     private lateinit var passcodeEditText: AppCompatEditText
     private lateinit var topAppBar: MaterialToolbar
     private lateinit var passcodeItems: LinearLayoutCompat
-    private lateinit var submitButton: AppCompatButton
 
     private var request = 0
     private var noteID = 0
@@ -33,24 +34,36 @@ class PasscodeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passcode)
 
+        //region Connect views
+        titleTextView = findViewById(R.id.titleTextView)
+        bodyTextView = findViewById(R.id.bodyTextView)
         passcodeEditText = findViewById(R.id.passcodeEditText)
         topAppBar = findViewById(R.id.topAppBar)
         passcodeItems = findViewById(R.id.passcodeItemsLinearLayout)
-        submitButton = findViewById(R.id.submitButton)
+        //endregion
 
         request = intent.getIntExtra("request", 0)
         noteID = intent.getIntExtra("note_id", 0)
 
+        //region Prepare view
         when(request) {
             CREATE_PASSCODE_REQUEST -> {
-                // TODO - Prepare title "Create a new passcode"
+                titleTextView.text = getString(R.string.create_passcode_title)
+                bodyTextView.visibility = View.VISIBLE
             }
             OPEN_NOTE_REQUEST -> {
-                // TODO - Prepare title "Enter passcode"
+                titleTextView.text = getString(R.string.enter_passcode_title)
+                bodyTextView.visibility = View.GONE
+            }
+
+            CHANGE_PASSCODE_REQUEST -> {
+                titleTextView.text = getString(R.string.change_passcode_title)
+                bodyTextView.visibility = View.GONE
             }
         }
+        //endregion
 
-        //region Listeners
+        //region Attach listeners
         topAppBar.setNavigationOnClickListener {
             finish()
         }
@@ -60,12 +73,12 @@ class PasscodeActivity : AppCompatActivity() {
             updateCheckmarks(passcode.length)
         }
 
-        passcodeEditText.setOnKeyListener { v, i, keyEvent ->
-            if (keyEvent.action == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_ENTER) {
-                onClickSubmit(v)
-            }
-            false
-        }
+//        passcodeEditText.setOnKeyListener { v, i, keyEvent ->
+//            if (keyEvent.action == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_ENTER) {
+//                submitPasscode()
+//            }
+//            false
+//        }
 
         passcodeItems.setOnClickListener {
             showKeyboard()
@@ -88,14 +101,13 @@ class PasscodeActivity : AppCompatActivity() {
             }
         }
 
-        submitButton.visibility = if (size > 3) {
-            View.VISIBLE
-        } else {
-            View.INVISIBLE
+        if (size > 3) {
+            // Automatically submit passcode when typed the last digit
+            submitPasscode()
         }
     }
 
-    fun onClickSubmit(v: View) {
+    private fun submitPasscode() {
         val passcode = passcodeEditText.text.toString()
 
         when (request) {
@@ -111,12 +123,29 @@ class PasscodeActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this, "Wrong passcode. Try again.", Toast.LENGTH_SHORT).show()
-                    passcodeEditText.text?.clear()
-                    showKeyboard()
+                    clearWithDelay()
+                }
+            }
+
+            CHANGE_PASSCODE_REQUEST -> {
+                if (LockManager(this).matchPasscode(passcode)) {
+                    val intent = Intent(this, PasscodeActivity::class.java)
+                    intent.putExtra("request", CREATE_PASSCODE_REQUEST)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    clearWithDelay()
                 }
             }
         }
+    }
+
+    private fun clearWithDelay() {
+        Handler(mainLooper).postDelayed({
+            Toast.makeText(this, "Wrong passcode. Try again.", Toast.LENGTH_SHORT).show()
+            passcodeEditText.text?.clear()
+            showKeyboard()
+        }, 300)
     }
 
     private fun showKeyboard() {
@@ -127,7 +156,8 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     companion object {
-        val CREATE_PASSCODE_REQUEST = 10001
-        val OPEN_NOTE_REQUEST = 10002
+        const val CREATE_PASSCODE_REQUEST = 10001
+        const val OPEN_NOTE_REQUEST = 10002
+        const val CHANGE_PASSCODE_REQUEST = 10003
     }
 }
