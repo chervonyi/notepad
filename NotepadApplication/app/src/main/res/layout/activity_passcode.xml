@@ -28,6 +28,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/note_padding"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -111,6 +112,19 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_button_height"
+            android:layout_alignParentBottom="true"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="@color/note_block_highlighted_text_0"
+            android:textSize="@dimen/note_block_title_size"
+            android:background="@drawable/bottom_button"
+            android:visibility="visible"
+            android:onClick="onClickSubmit"/>
 
     </RelativeLayout>
 

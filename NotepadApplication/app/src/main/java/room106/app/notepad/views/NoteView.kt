@@ -35,6 +35,8 @@ class NoteView: LinearLayoutCompat {
         this.note = note
 
         if (note.isLocked) {
+//            note.isLocked = false
+//            initializeView(context)
             initializeLockedNoteView(context)
         } else {
             initializeView(context)
@@ -87,7 +89,8 @@ class NoteView: LinearLayoutCompat {
         setOnClickListener {
             if (note != null) {
                 val intent = Intent(context, PasscodeActivity::class.java)
-                // TODO - put note.id as extra
+                intent.putExtra("request", PasscodeActivity.OPEN_NOTE_REQUEST)
+                intent.putExtra("note_id", note!!.id)
                 (context as MainActivity).startActivity(intent)
             }
         }

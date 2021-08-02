@@ -1,6 +1,7 @@
 package room106.app.notepad.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +15,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import room106.app.notepad.R
 import room106.app.notepad.interfaces.CheckboxEditListener
+import room106.app.notepad.models.LockManager
 import room106.app.notepad.models.Note
 import room106.app.notepad.models.Task
 import room106.app.notepad.models.Vault
@@ -70,11 +72,19 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
                 }
 
                 R.id.menu_lock -> {
-                    note!!.isLocked = !note!!.isLocked
-                    if (note!!.isLocked) {
-                        it.title = getString(R.string.menu_unlock)
+
+                    if (LockManager(this).isPasscodeReady()) {
+                        note!!.isLocked = !note!!.isLocked
+                        if (note!!.isLocked) {
+                            it.title = getString(R.string.menu_unlock)
+                        } else {
+                            it.title = getString(R.string.menu_lock)
+                        }
                     } else {
-                        it.title = getString(R.string.menu_lock)
+                        // Go to PasscodeActivity to create a passcode
+                        val intent = Intent(this, PasscodeActivity::class.java)
+                        intent.putExtra("request", PasscodeActivity.CREATE_PASSCODE_REQUEST)
+                        startActivity(intent)
                     }
                 }
             }
@@ -191,11 +201,16 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
 
     //region Other
     private fun updateMenuItems() {
-        val it = topAppBar.menu.findItem(R.id.menu_highlight)
-        if (note!!.isHighlighted) {
-            it.title = getString(R.string.menu_unhighlight)
+        topAppBar.menu.findItem(R.id.menu_highlight).title = if (note!!.isHighlighted) {
+            getString(R.string.menu_unhighlight)
         } else {
-            it.title = getString(R.string.menu_highlight)
+            getString(R.string.menu_highlight)
+        }
+
+        topAppBar.menu.findItem(R.id.menu_lock).title = if (note!!.isLocked) {
+            getString(R.string.menu_unlock)
+        } else {
+            getString(R.string.menu_lock)
         }
     }
 
