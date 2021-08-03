@@ -150,7 +150,12 @@ class NoteView: LinearLayoutCompat {
         }
 
         bodyTextView.text = note.body
+        hideIfBlank(bodyTextView)
+
         folderTextView.text = Vault.instance?.getFolderNameById(note.folder) ?: ""
+        hideIfBlank(folderTextView)
+
+
         dateTextView.text = note.date
 
         tasksLinearLayoutCompat.removeAllViews()
@@ -171,6 +176,14 @@ class NoteView: LinearLayoutCompat {
         }
 
         setHighlight(note.isHighlighted)
+    }
+
+    private fun hideIfBlank(view: TextView) {
+        if (view.text.isBlank()) {
+            view.visibility = View.GONE
+        } else {
+            view.visibility = View.VISIBLE
+        }
     }
 
     private fun updateJSON() {

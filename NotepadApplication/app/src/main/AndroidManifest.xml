@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Notepad">
-        <activity android:name=".activities.PasscodeActivity"/>
-        <activity android:name=".activities.FolderActivity" />
-        <activity android:name=".activities.NoteActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.PasscodeActivity"
+            android:screenOrientation="fullSensor"/>
+        <activity android:name=".activities.FolderActivity"
+            android:screenOrientation="fullSensor" />
+        <activity android:name=".activities.NoteActivity"
+            android:screenOrientation="fullSensor" />
+        <activity android:name=".activities.MainActivity"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

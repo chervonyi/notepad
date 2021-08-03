@@ -18,4 +18,5 @@
     <string name="change_passcode_title">Enter your current passcode</string>
     <string name="enter_passcode_title">Enter passcode</string>
     <string name="change_passcode_menu">Change passcode</string>
+    <string name="no_folder_assigned_title">NONE</string>
 </resources>

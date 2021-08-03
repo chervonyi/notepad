@@ -155,7 +155,13 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
     private fun updateView(note: Note) {
         title.text = note.title
         date.text = note.date + ", " + note.time
-        folder.text = Vault.instance?.getFolderNameById(note.folder) ?: ""
+
+        val folderName = Vault.instance?.getFolderNameById(note.folder) ?: ""
+        folder.text = if (folderName.isBlank()) {
+            "None"
+        } else {
+            folderName
+        }
         body.text = note.body
 
         tasks.removeAllViews()
@@ -189,6 +195,7 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
                 if (lw.checkedItemPosition == 0) {
                     note!!.folder = -1
                     (v as AppCompatButton).text = Vault.instance?.getFolderNameById(note!!.folder)
+                    v.text = "None"
                     // Set no-folder icon
                 } else {
                     note!!.folder = Vault.instance?.getFolderIdByTitle(allFolders[lw.checkedItemPosition]) ?: -1
