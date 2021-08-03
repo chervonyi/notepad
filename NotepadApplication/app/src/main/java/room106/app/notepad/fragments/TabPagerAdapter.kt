@@ -24,4 +24,8 @@ class TabPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     fun createNewFolder() {
         folderListFragment.createNewFolder()
     }
+
+    fun updateNotesListViewOption() {
+        notesListFragment.switchViewOption()
+    }
 }

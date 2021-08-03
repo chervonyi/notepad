@@ -1,5 +1,6 @@
 package room106.app.notepad.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,8 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
 import room106.app.notepad.R
+import room106.app.notepad.fragments.NotesListFragment.Companion.PREFERENCE_FILE_KEY
+import room106.app.notepad.fragments.NotesListFragment.Companion.VIEW_OPTION_KEY
 import room106.app.notepad.fragments.TabPagerAdapter
 import room106.app.notepad.models.JSONFileReader
 import room106.app.notepad.models.Vault
@@ -48,6 +51,13 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("request", PasscodeActivity.CHANGE_PASSCODE_REQUEST)
                     startActivity(intent)
                 }
+
+                R.id.menu_switch_view -> {
+                    switchNotesViewOption()
+
+                    // Refresh current activity with a new option view mode
+                    (viewPager.adapter as TabPagerAdapter).updateNotesListViewOption()
+                }
             }
             true
         }
@@ -75,5 +85,14 @@ class MainActivity : AppCompatActivity() {
         Log.d("Test", "MainActivity - updateVaultFromJSON")
         Vault.instance = JSONFileReader().readVault(this)
         Vault.instance?.checkInitialFolders(this)
+    }
+
+    private fun switchNotesViewOption() {
+        val sharedPref = getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
+        val currentMode = sharedPref.getBoolean(VIEW_OPTION_KEY, false)
+        with (sharedPref.edit()) {
+            putBoolean(VIEW_OPTION_KEY, !currentMode)
+            apply()
+        }
     }
 }
