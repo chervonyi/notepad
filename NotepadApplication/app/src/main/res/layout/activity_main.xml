@@ -28,6 +28,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,6 +44,10 @@
             app:tint="@android:color/white"
             android:src="@drawable/ic_add_outline"
             android:onClick="onClickFloatingButton"/>
+
+            <include
+                android:id="@+id/emptyListLayout"
+                layout="@layout/fragment_empty_notes"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"

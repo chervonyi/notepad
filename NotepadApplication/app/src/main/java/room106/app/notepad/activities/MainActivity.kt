@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var topAppBar: MaterialToolbar
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager
+    private lateinit var emptyListLayout: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         topAppBar = findViewById(R.id.topAppBar)
         tabLayout = findViewById(R.id.tabLayout)
         viewPager = findViewById(R.id.viewPager)
-
+        emptyListLayout = findViewById(R.id.emptyListLayout)
 
         //region Listeners
-        viewPager.adapter = TabPagerAdapter(supportFragmentManager)
+        viewPager.adapter = TabPagerAdapter(supportFragmentManager, isEmptyNotesList())
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
@@ -76,8 +78,24 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateVaultFromJSON()
+        updateViewToNotesList()
     }
 
+    private fun updateViewToNotesList() {
+        if (isEmptyNotesList()) {
+            emptyListLayout.visibility = View.VISIBLE
+            viewPager.visibility = View.INVISIBLE
+            tabLayout.visibility = View.INVISIBLE
+        } else {
+            emptyListLayout.visibility = View.INVISIBLE
+            viewPager.visibility = View.VISIBLE
+            tabLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun isEmptyNotesList() : Boolean {
+        return Vault.instance?.notes?.isEmpty() ?: false
+    }
 
     private fun updateVaultFromJSON() {
 //        JSONFileReader().saveVault(requireContext(), "")

@@ -21,4 +21,6 @@
     <string name="no_folder_assigned_title">NONE</string>
     <string name="no">No</string>
     <string name="delete">Delete</string>
+    <string name="empty_list_title">You have no notes</string>
+    <string name="empty_list_hint">Tap button bellow to add a new note</string>
 </resources>
