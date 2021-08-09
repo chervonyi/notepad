@@ -87,6 +87,12 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
                         startActivity(intent)
                     }
                 }
+
+                R.id.menu_delete -> {
+                    if (note!!.id != 0) {
+                        showAlertDialog()
+                    }
+                }
             }
             true
         }
@@ -103,6 +109,18 @@ class NoteActivity : AppCompatActivity(), CheckboxEditListener {
         }
 
         updateMenuItems()
+    }
+
+    private fun showAlertDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Confirm delete")
+            .setMessage("Are you sure you want delete this note?")
+            .setNegativeButton(resources.getString(R.string.no)) { dialog, which -> }
+            .setPositiveButton(resources.getString(R.string.delete)) { dialog, which ->
+                Vault.instance?.deleteNote(this, note!!.id)
+                finish()
+            }
+            .show()
     }
 
     @SuppressLint("SimpleDateFormat")

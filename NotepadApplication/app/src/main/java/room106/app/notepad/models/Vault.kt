@@ -98,6 +98,11 @@ class Vault {
         folders[newFolder.id] = newFolder
     }
 
+    fun deleteNote(context: Context, id: Int) {
+        notes.remove(id)
+        updateJSONFile(context)
+    }
+
     companion object {
         var instance: Vault? = null
     }

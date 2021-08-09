@@ -11,11 +11,6 @@
         android:title="@string/menu_lock"
         app:showAsAction="collapseActionView"/>
 
-    <item android:id="@+id/menu_duplicate"
-        android:icon="@drawable/ic_folder_solid"
-        android:title="Duplicate"
-        app:showAsAction="collapseActionView"/>
-
     <item android:id="@+id/menu_delete"
         android:icon="@drawable/ic_folder_solid"
         android:title="Delete"
