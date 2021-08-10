@@ -1,28 +1,34 @@
 package room106.app.notepad.models
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import room106.app.notepad.R
 
 class Note {
 
-    var id = 0
+    @Expose var id = 0
         private set
-    var title = ""
-    var body = ""
-    var tasks = ArrayList<Task>()
-    var folder = -1
-    var date = ""
-    var time = ""
-    var isHighlighted = false
-    var isLocked = false
+    @Expose var title = ""
+    @Expose var body = ""
+    @Expose var tasks = ArrayList<Task>()
+    @Expose var folder = -1
+    @Expose var date = ""
+    @Expose var time = ""
+    @Expose var isHighlighted = false
+    @Expose var isLocked = false
 
-    /**
-     * Check if note is able to be saved:
-     * - Title mustn't be blank
-     * - Body mustn't be blank too OR tasks list mustn't be empty
-     */
+
+    private val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"
+
+    private val NOTE_UNIQUE_ID_KEY = "NOTE_UNIQUE_ID_KEY"
+
+
     fun isNotBlank() : Boolean {
-        return title.isNotBlank() && (body.isNotBlank() || tasks.isNotEmpty())
+        return title.isNotBlank() || body.isNotBlank() || tasks.isNotEmpty()
     }
+
 
     fun assignUniqueId(context: Context) : Int {
         val sharedPref = context.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
@@ -34,10 +40,5 @@ class Note {
         }
 
         return id
-    }
-
-    companion object {
-        const val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"
-        const val NOTE_UNIQUE_ID_KEY = "NOTE_UNIQUE_ID_KEY"
     }
 }

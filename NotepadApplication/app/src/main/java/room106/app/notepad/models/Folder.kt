@@ -40,8 +40,8 @@ class Folder {
         }
 
     companion object {
-        const val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"
-        const val FOLDER_UNIQUE_ID_KEY = "FOLDER_UNIQUE_ID_KEY"
+        private val PREFERENCE_FILE_KEY = "PREFERENCE_FILE_KEY"
+        private val FOLDER_UNIQUE_ID_KEY = "FOLDER_UNIQUE_ID_KEY"
 
         fun getNextUniqueIDKey(context: Context) : Int {
             val sharedPref = context.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
