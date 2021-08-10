@@ -63,7 +63,6 @@ class Vault {
     }
 
     fun getNotesByFolder(folderId: Int): Map<Int, Note> {
-//        val folderName = folders[id]?.title ?: HashMap<Int, Note>()
         return notes.filter {
             it.value.folder == folderId
         }
