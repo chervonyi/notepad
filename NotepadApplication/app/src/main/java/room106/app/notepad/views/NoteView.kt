@@ -11,6 +11,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import room106.app.notepad.R
+import room106.app.notepad.activities.FolderActivity
 import room106.app.notepad.activities.MainActivity
 import room106.app.notepad.activities.NoteActivity
 import room106.app.notepad.activities.PasscodeActivity
@@ -74,7 +75,10 @@ class NoteView: LinearLayoutCompat {
             if (note != null) {
                 val intent = Intent(context, NoteActivity::class.java)
                 intent.putExtra("note", note!!.id)
-                (context as MainActivity).startActivity(intent)
+
+                if (context is MainActivity || context is FolderActivity) {
+                    context.startActivity(intent)
+                }
             }
         }
     }
